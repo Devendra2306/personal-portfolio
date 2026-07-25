@@ -5,11 +5,23 @@ import { Projects } from '@/components/projects/Projects';
 import { Timeline } from '@/components/timeline/Timeline';
 import { Contact } from '@/components/contact/Contact';
 import { personalInfo } from '@/data/personal';
+import { Marquee } from '@/components/shared/Marquee';
 
 const footerNavLinks = [
   { label: 'About', href: '#about' },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
+];
+
+const marqueeItems = [
+  'REACT',
+  'NEXT.JS 15',
+  'TYPESCRIPT',
+  'TAILWIND CSS',
+  'NODE.JS',
+  'POSTGRESQL',
+  'AWS',
+  'FRAMER MOTION'
 ];
 
 export default function Home() {
@@ -19,6 +31,8 @@ export default function Home() {
       <div className="relative">
         <Hero />
       </div>
+
+      <Marquee items={marqueeItems} speed="slow" className="mb-24" />
 
       <About />
       <Skills />

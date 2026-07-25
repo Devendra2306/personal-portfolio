@@ -252,7 +252,22 @@ h3, h4, h5, h6 {
   .image-scan-line {
     display: none;
   }
+}
 
+/* ============================================================
+   MARQUEE UTILITIES
+   ============================================================ */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+.animate-marquee-slow {
+  animation: marquee 40s linear infinite;
 }
 
 /* ============================================================

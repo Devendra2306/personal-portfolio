@@ -26,7 +26,6 @@ export function Nav() {
   const [isScrolled, setIsScrolled] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  // Track active section via IntersectionObserver
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
 
@@ -50,7 +49,6 @@ export function Nav() {
     return () => observers.forEach((obs) => obs.disconnect());
   }, []);
 
-  // Track scroll for nav background opacity
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -59,7 +57,6 @@ export function Nav() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on Escape
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isMobileMenuOpen) {
@@ -79,118 +76,118 @@ export function Nav() {
   }, []);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-[rgba(10,10,15,0.85)] backdrop-blur-[16px] border-b border-[rgba(0,240,255,0.08)]'
-          : 'bg-[rgba(10,10,15,0.1)]'
-      }`}
-      role="navigation"
-      aria-label="Main navigation"
-    >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 h-16 flex items-center justify-between">
-        {/* Logo / Name */}
-        <button
-          onClick={() => scrollToSection('hero')}
-          className="font-[family-name:var(--font-heading)] text-sm font-bold tracking-tight text-[var(--color-pure-white)] hover:text-[var(--color-neon-cyan)] transition-colors duration-300"
-        >
-          {personalInfo.name.split(' ')[0].toUpperCase()}
-          <span className="text-[var(--color-neon-cyan)]">.</span>
-        </button>
+    <div className="fixed top-4 md:top-6 left-0 right-0 z-50 flex justify-center px-4 md:px-8 pointer-events-none">
+      <nav
+        className={`pointer-events-auto transition-all duration-500 rounded-full border ${
+          isScrolled
+            ? 'bg-[rgba(20,20,25,0.7)] backdrop-blur-xl border-[rgba(255,255,255,0.08)] shadow-[0_16px_40px_rgba(0,0,0,0.3)] py-1.5 px-2 md:px-4'
+            : 'bg-[rgba(15,15,20,0.2)] backdrop-blur-md border-[rgba(255,255,255,0.03)] py-2 px-3 md:px-5'
+        }`}
+        role="navigation"
+        aria-label="Main navigation"
+      >
+        <div className="flex items-center justify-between gap-4 md:gap-8">
+          {/* Logo / Name */}
+          <button
+            onClick={() => scrollToSection('hero')}
+            className="pl-2 md:pl-0 font-[family-name:var(--font-heading)] text-sm font-bold tracking-tight text-[var(--color-pure-white)] hover:text-[#C4917A] transition-colors duration-300"
+          >
+            {personalInfo.name.split(' ')[0].toUpperCase()}
+            <span className="text-[#C4917A]">.</span>
+          </button>
 
-        {/* Desktop Section Links */}
-        <div className="hidden md:flex items-center gap-8">
-          {navSections.map(({ id, label }) => (
-            <button
-              key={id}
-              onClick={() => scrollToSection(id)}
-              className={`relative font-[family-name:var(--font-mono)] text-xs tracking-wider transition-colors duration-300 py-1 ${
-                activeSection === id
-                  ? 'text-[var(--color-neon-cyan)]'
-                  : 'text-[var(--color-off-white)] hover:text-[var(--color-pure-white)]'
-              }`}
-              aria-current={activeSection === id ? 'page' : undefined}
-            >
-              {label}
-              {/* Active indicator — cyan underline */}
-              {activeSection === id && (
-                prefersReducedMotion ? (
-                  <span className="absolute bottom-0 left-0 right-0 h-[1px] bg-[var(--color-neon-cyan)]" />
-                ) : (
-                  <motion.span
-                    layoutId="nav-active-indicator"
-                    className="absolute bottom-0 left-0 right-0 h-[1px] bg-[var(--color-neon-cyan)]"
-                    style={{ boxShadow: '0 0 8px rgba(0, 240, 255, 0.5)' }}
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                  />
-                )
-              )}
-            </button>
-          ))}
-        </div>
-
-        {/* Quick Links (Desktop) */}
-        <div className="hidden lg:flex items-center gap-4">
-          {quickLinks.map(({ label, href, external }) => (
-            <a
-              key={label}
-              href={href}
-              target={external ? '_blank' : undefined}
-              rel={external ? 'noopener noreferrer' : undefined}
-              className="font-[family-name:var(--font-mono)] text-[11px] tracking-[0.2em] text-[var(--color-off-white)] hover:text-[var(--color-neon-cyan)] transition-colors duration-300"
-            >
-              {label}
-            </a>
-          ))}
-        </div>
-
-        {/* Mobile Hamburger */}
-        <button
-          className="md:hidden relative w-10 h-10 flex items-center justify-center"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={isMobileMenuOpen}
-        >
-          <span className="sr-only">{isMobileMenuOpen ? 'Close' : 'Menu'}</span>
-          <div className="flex flex-col gap-1.5">
-            <span
-              className={`block w-5 h-[1px] bg-[var(--color-off-white)] transition-all duration-300 ${
-                isMobileMenuOpen ? 'rotate-45 translate-y-[4px]' : ''
-              }`}
-            />
-            <span
-              className={`block w-5 h-[1px] bg-[var(--color-off-white)] transition-all duration-300 ${
-                isMobileMenuOpen ? 'opacity-0' : ''
-              }`}
-            />
-            <span
-              className={`block w-5 h-[1px] bg-[var(--color-off-white)] transition-all duration-300 ${
-                isMobileMenuOpen ? '-rotate-45 -translate-y-[4px]' : ''
-              }`}
-            />
+          {/* Desktop Section Links */}
+          <div className="hidden md:flex items-center gap-1">
+            {navSections.map(({ id, label }) => (
+              <button
+                key={id}
+                onClick={() => scrollToSection(id)}
+                className={`relative px-4 py-1.5 rounded-full font-[family-name:var(--font-mono)] text-[10px] tracking-wider transition-colors duration-300 ${
+                  activeSection === id
+                    ? 'text-[var(--color-pure-white)]'
+                    : 'text-[var(--color-off-white)] hover:text-[var(--color-pure-white)] opacity-60 hover:opacity-100'
+                }`}
+                aria-current={activeSection === id ? 'page' : undefined}
+              >
+                <span className="relative z-10">{label}</span>
+                {activeSection === id && (
+                  prefersReducedMotion ? (
+                    <span className="absolute inset-0 rounded-full bg-[rgba(255,255,255,0.08)] -z-0" />
+                  ) : (
+                    <motion.span
+                      layoutId="nav-pill-active"
+                      className="absolute inset-0 rounded-full bg-[rgba(255,255,255,0.08)] -z-0"
+                      transition={{ type: 'spring', stiffness: 400, damping: 35 }}
+                    />
+                  )
+                )}
+              </button>
+            ))}
           </div>
-        </button>
-      </div>
+
+          {/* Quick Links (Desktop) */}
+          <div className="hidden lg:flex items-center gap-4 border-l border-[rgba(255,255,255,0.1)] pl-6 ml-2">
+            {quickLinks.map(({ label, href, external }) => (
+              <a
+                key={label}
+                href={href}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noopener noreferrer' : undefined}
+                className="font-[family-name:var(--font-mono)] text-[10px] tracking-[0.2em] text-[var(--color-off-white)] opacity-60 hover:opacity-100 hover:text-[#C4917A] transition-colors duration-300"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+
+          {/* Mobile Hamburger */}
+          <button
+            className="md:hidden relative w-9 h-9 flex items-center justify-center mr-1"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMobileMenuOpen}
+          >
+            <span className="sr-only">{isMobileMenuOpen ? 'Close' : 'Menu'}</span>
+            <div className="flex flex-col gap-[5px]">
+              <span
+                className={`block w-4 h-[1.5px] bg-[var(--color-off-white)] transition-all duration-300 ${
+                  isMobileMenuOpen ? 'rotate-45 translate-y-[6.5px]' : ''
+                }`}
+              />
+              <span
+                className={`block w-4 h-[1.5px] bg-[var(--color-off-white)] transition-all duration-300 ${
+                  isMobileMenuOpen ? 'opacity-0' : ''
+                }`}
+              />
+              <span
+                className={`block w-4 h-[1.5px] bg-[var(--color-off-white)] transition-all duration-300 ${
+                  isMobileMenuOpen ? '-rotate-45 -translate-y-[6.5px]' : ''
+                }`}
+              />
+            </div>
+          </button>
+        </div>
+      </nav>
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: '100%' }}
+            initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: -20, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -20, filter: 'blur(10px)' }}
             transition={prefersReducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 300, damping: 30 }}
-            className="fixed inset-0 top-16 bg-[rgba(10,10,15,0.95)] backdrop-blur-[16px] md:hidden"
+            className="absolute top-full mt-4 w-full max-w-sm left-1/2 -translate-x-1/2 bg-[rgba(20,20,25,0.9)] backdrop-blur-xl border border-[rgba(255,255,255,0.08)] rounded-3xl p-6 shadow-2xl pointer-events-auto md:hidden"
           >
-            <div className="flex flex-col items-center gap-6 pt-12">
+            <div className="flex flex-col gap-4">
               {navSections.map(({ id, label }) => (
                 <button
                   key={id}
                   onClick={() => scrollToSection(id)}
-                  className={`font-[family-name:var(--font-mono)] text-sm tracking-[0.2em] transition-colors duration-300 ${
+                  className={`text-left px-4 py-3 rounded-xl font-[family-name:var(--font-mono)] text-xs tracking-[0.2em] transition-colors duration-300 ${
                     activeSection === id
-                      ? 'text-[var(--color-neon-cyan)]'
-                      : 'text-[var(--color-off-white)] hover:text-[var(--color-pure-white)]'
+                      ? 'bg-[rgba(255,255,255,0.05)] text-[#C4917A]'
+                      : 'text-[var(--color-off-white)] opacity-70 hover:bg-[rgba(255,255,255,0.02)] hover:opacity-100'
                   }`}
                 >
                   {label}
@@ -198,14 +195,14 @@ export function Nav() {
               ))}
 
               {/* Mobile Quick Links */}
-              <div className="mt-8 pt-8 border-t border-[rgba(255,255,255,0.1)] flex gap-6">
+              <div className="mt-4 pt-4 border-t border-[rgba(255,255,255,0.08)] flex flex-wrap gap-4 px-4">
                 {quickLinks.map(({ label, href, external }) => (
                   <a
                     key={label}
                     href={href}
                     target={external ? '_blank' : undefined}
                     rel={external ? 'noopener noreferrer' : undefined}
-                    className="font-[family-name:var(--font-mono)] text-xs tracking-[0.2em] text-[var(--color-off-white)] hover:text-[var(--color-neon-cyan)] transition-colors duration-300"
+                    className="font-[family-name:var(--font-mono)] text-[10px] tracking-[0.2em] text-[var(--color-off-white)] opacity-50 hover:opacity-100 hover:text-[#C4917A] transition-colors duration-300"
                   >
                     {label}
                   </a>
@@ -215,6 +212,6 @@ export function Nav() {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </div>
   );
 }
