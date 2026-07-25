@@ -8,7 +8,7 @@ import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 export function Hero() {
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  const containerVariants = {
+  const containerVariants: any = {
     hidden: {},
     visible: {
       transition: {
@@ -18,7 +18,7 @@ export function Hero() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: any = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -28,14 +28,14 @@ export function Hero() {
   };
 
   // Specific word reveal variants
-  const wordContainerVariants = {
+  const wordContainerVariants: any = {
     hidden: {},
     visible: {
       transition: { staggerChildren: 0.08 },
     },
   };
 
-  const wordVariants = {
+  const wordVariants: any = {
     hidden: { y: '120%' },
     visible: {
       y: 0,
@@ -43,14 +43,14 @@ export function Hero() {
     },
   };
 
-  const charContainerVariants = {
+  const charContainerVariants: any = {
     hidden: {},
     visible: {
       transition: { staggerChildren: 0.04, delayChildren: 0.1 },
     },
   };
 
-  const charVariants = {
+  const charVariants: any = {
     hidden: { y: '120%' },
     visible: {
       y: 0,
