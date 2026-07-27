@@ -3,6 +3,7 @@ import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { LenisProvider } from './lenis-provider';
 import { Nav } from '@/components/nav/Nav';
+import { PremiumShell } from '@/components/shared/PremiumShell';
 
 const spaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk',
@@ -70,6 +71,7 @@ export default function RootLayout({
     >
       <body className="min-h-screen bg-[var(--color-void-black)] text-[var(--color-off-white)]">
         <LenisProvider>
+          <PremiumShell />
           <Nav />
           <main>{children}</main>
         </LenisProvider>
@@ -77,3 +79,4 @@ export default function RootLayout({
     </html>
   );
 }
+
