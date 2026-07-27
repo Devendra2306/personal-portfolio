@@ -12,13 +12,13 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 'cloud-vault',
-    title: 'CloudVault',
-    description: 'Secure cloud storage platform inspired by Google Drive with file/folder management, sharing, and AWS S3 integration.',
-    tags: ['React', 'Node.js', 'PostgreSQL', 'Prisma', 'AWS S3', 'Firebase'],
+    title: 'CloudVault Drive',
+    description: 'Enterprise-grade cloud storage platform featuring robust JWT authentication, protected routing, secure file sharing via email, and AWS S3 integration.',
+    tags: ['Next.js', 'Node.js', 'PostgreSQL', 'JWT', 'AWS S3', 'Resend'],
     demoUrl: 'https://www.cloudvault.co.in',
     sourceUrl: '#',
     status: 'online',
-    timestamp: '2026.03',
+    timestamp: '2026.07',
   },
   {
     id: 'smart-locker',
