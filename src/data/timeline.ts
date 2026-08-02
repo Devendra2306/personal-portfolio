@@ -9,6 +9,14 @@ export interface TimelineEntry {
 
 export const timelineEntries: TimelineEntry[] = [
   {
+    id: 'ssc',
+    date: '2022 - 2024',
+    title: 'Class XII SSC',
+    organization: 'Nirmala Memorial Junior College of Science',
+    description: 'Completed higher secondary education in science.',
+    type: 'education',
+  },
+  {
     id: 'btech',
     date: '2024 - Present',
     title: 'B.Tech in Information Technology',
@@ -31,13 +39,5 @@ export const timelineEntries: TimelineEntry[] = [
     organization: 'Certification',
     description: 'Currently preparing for the AWS Cloud Practitioner certification to solidify cloud computing fundamentals.',
     type: 'achievement',
-  },
-  {
-    id: 'ssc',
-    date: '2022 - 2024',
-    title: 'Class XII SSC',
-    organization: 'Nirmala Memorial Junior College of Science',
-    description: 'Completed higher secondary education in science.',
-    type: 'education',
   },
 ];
