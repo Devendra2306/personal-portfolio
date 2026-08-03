@@ -1,9 +1,10 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { LenisProvider } from './lenis-provider';
 import { Nav } from '@/components/nav/Nav';
 import { PremiumShell } from '@/components/shared/PremiumShell';
+import { Analytics } from '@vercel/analytics/react';
 
 const spaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk',
@@ -83,8 +84,8 @@ export default function RootLayout({
           <Nav />
           <main>{children}</main>
         </LenisProvider>
+        <Analytics />
       </body>
     </html>
   );
 }
-
