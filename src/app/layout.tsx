@@ -27,6 +27,11 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ['400', '500', '700'],
 });
 
+/**
+ * Global Metadata Configuration
+ * This defines the SEO, OpenGraph, and Twitter card data for the entire application.
+ * Values can be overridden on a per-page basis if needed.
+ */
 export const metadata: Metadata = {
   title: 'Devendra Divakar — Full-Stack Developer',
   description:
