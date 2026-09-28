@@ -114,43 +114,30 @@ export function Hero() {
       aria-label="Hero"
       className="relative min-h-screen flex items-center px-6 md:px-12 lg:px-24 pt-16"
     >
-      {/* Background gradient */}
-      <div
-        className="absolute inset-0 -z-10"
-        style={{
-          background: 'radial-gradient(circle at 15% 50%, rgba(196, 145, 122, 0.12), transparent 35%), radial-gradient(circle at 85% 30%, rgba(212, 168, 150, 0.08), transparent 35%), linear-gradient(180deg, #050508 0%, #0A0A0F 100%)',
-          backgroundSize: '200% 200%',
-          animation: 'mesh-gradient 15s ease infinite',
-        }}
-      />
+      {/* Background base */}
+      <div className="absolute inset-0 -z-10 bg-[var(--color-void-black)]" />
 
       {/* Grid overlay */}
       <div 
-        className="absolute inset-0 -z-10 pointer-events-none opacity-20"
+        className="absolute inset-0 -z-10 pointer-events-none opacity-40 mix-blend-screen"
         style={{
-          backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)',
-          backgroundSize: '64px 64px',
-          maskImage: 'radial-gradient(ellipse at center, black 20%, transparent 80%)',
-          WebkitMaskImage: 'radial-gradient(ellipse at center, black 20%, transparent 80%)'
+          backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)',
+          backgroundSize: '40px 40px',
+          maskImage: 'linear-gradient(to bottom, black 20%, transparent 90%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 20%, transparent 90%)'
         }}
       />
 
-      {/* Ambient glow orbs */}
+      {/* Ambient glow orbs - minimal */}
       <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none mix-blend-screen">
         <motion.div
-          className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full"
-          style={{
-            background: 'radial-gradient(circle, rgba(196, 145, 122, 0.06) 0%, transparent 70%)',
-          }}
+          className="absolute top-[30%] right-[30%] w-[40vw] h-[40vw] rounded-full blur-[100px]"
+          style={{ background: 'rgba(196, 145, 122, 0.04)' }}
           animate={{
             scale: [1, 1.1, 1],
-            opacity: [0.5, 0.8, 0.5],
+            opacity: [0.3, 0.5, 0.3],
           }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
         />
       </div>
 

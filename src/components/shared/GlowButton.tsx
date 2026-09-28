@@ -24,134 +24,91 @@ export function GlowButton({
   type = "button",
   disabled = false,
 }: GlowButtonProps) {
-  const isMega = variant === "mega";
-  const isPrimary = variant === "primary";
+  const isPrimary = variant === "primary" || variant === "mega";
   const ref = useRef<HTMLElement>(null);
   const [transform, setTransform] = useState("translate(0px, 0px) scale(1)");
 
-  /* ── Magnetic pull ── */
   const handleMouseMove = useCallback((e: MouseEvent<HTMLElement>) => {
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    const deltaX = (e.clientX - centerX) * 0.15;
-    const deltaY = (e.clientY - centerY) * 0.25;
-    const clampedX = Math.max(-12, Math.min(12, deltaX));
-    const clampedY = Math.max(-8, Math.min(8, deltaY));
-    setTransform(`translate(${clampedX}px, ${clampedY}px) scale(1.02)`);
+    const deltaX = (e.clientX - centerX) * 0.1;
+    const deltaY = (e.clientY - centerY) * 0.15;
+    setTransform(`translate(${deltaX}px, ${deltaY}px) scale(1.02)`);
   }, []);
 
   const handleMouseLeave = useCallback((e: MouseEvent<HTMLElement>) => {
     setTransform("translate(0px, 0px) scale(1)");
     const el = e.currentTarget;
-    
-    if (isMega) {
-      el.style.boxShadow = "0 4px 20px rgba(196, 145, 122, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.2)";
-    } else if (isPrimary) {
-      el.style.boxShadow = "none";
-      el.style.color = "#C4917A";
-      el.style.borderColor = "#C4917A";
+    if (isPrimary) {
+      el.style.boxShadow = "0 0 0 1px rgba(255, 255, 255, 0.1), 0 2px 10px rgba(0, 0, 0, 0.5)";
+      el.style.background = "rgba(255, 255, 255, 0.03)";
     } else {
+      el.style.background = "transparent";
       el.style.boxShadow = "none";
-      el.style.borderColor = "rgba(196, 145, 122, 0.35)";
     }
-  }, [isPrimary, isMega]);
+  }, [isPrimary]);
 
   const handleMouseEnter = useCallback((e: MouseEvent<HTMLElement>) => {
     const el = e.currentTarget;
-    if (isMega) {
-      el.style.boxShadow = "0 8px 30px rgba(196, 145, 122, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.3)";
-    } else if (isPrimary) {
-      el.style.boxShadow = "0 0 20px rgba(196,145,122,0.25), inset 0 0 20px rgba(196,145,122,0.06)";
-      el.style.color = "#FFFFFF";
-      el.style.borderColor = "#C4917A";
+    if (isPrimary) {
+      el.style.boxShadow = "0 0 0 1px rgba(196, 145, 122, 0.5), 0 0 30px rgba(196, 145, 122, 0.2), inset 0 0 20px rgba(196, 145, 122, 0.1)";
+      el.style.background = "rgba(196, 145, 122, 0.08)";
     } else {
-      el.style.boxShadow = "0 0 20px rgba(196,145,122,0.15)";
-      el.style.borderColor = "rgba(196, 145, 122, 0.7)";
+      el.style.background = "rgba(255, 255, 255, 0.04)";
     }
-  }, [isPrimary, isMega]);
+  }, [isPrimary]);
 
-  /* ── Shared classes ── */
   const baseClasses = [
-    "group relative overflow-hidden inline-flex items-center justify-center gap-2",
-    isMega ? "px-8 py-4 font-body font-semibold rounded-full" : "px-6 py-3 rounded",
-    "transition-all duration-300",
-    "cursor-pointer select-none",
-    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C4917A]",
-    disabled ? "opacity-50 pointer-events-none" : "",
+    "group relative inline-flex items-center justify-center gap-2",
+    "px-6 py-3 rounded-lg backdrop-blur-md",
+    "transition-all duration-300 ease-out",
+    "cursor-pointer select-none font-mono text-sm tracking-[0.08em] uppercase",
+    disabled ? "opacity-40 pointer-events-none" : "",
     className,
   ].filter(Boolean).join(" ");
 
-  /* ── Variant-specific inline styles ── */
-  let variantStyle: React.CSSProperties = { transform, transition: "all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)" };
+  let variantStyle: React.CSSProperties = { transform, transition: "transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease, background 0.3s ease" };
   
-  if (isMega) {
+  if (isPrimary) {
     variantStyle = {
       ...variantStyle,
-      background: "linear-gradient(135deg, #D4A896 0%, #C4917A 100%)",
-      color: "#000",
-      boxShadow: "0 4px 20px rgba(196, 145, 122, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.2)",
-      fontSize: "1rem",
-      border: "none",
-    };
-  } else if (isPrimary) {
-    variantStyle = {
-      ...variantStyle,
-      border: "1px solid #C4917A",
-      color: "#C4917A",
-      background: "transparent",
-      fontFamily: "var(--font-mono)",
-      fontSize: "0.875rem",
-      letterSpacing: "0.05em",
-      textTransform: "uppercase",
+      color: "#FFFFFF",
+      background: "rgba(255, 255, 255, 0.03)",
+      boxShadow: "0 0 0 1px rgba(255, 255, 255, 0.1), 0 2px 10px rgba(0, 0, 0, 0.5)",
     };
   } else {
     variantStyle = {
       ...variantStyle,
-      border: "1px solid rgba(196, 145, 122, 0.35)",
-      color: "#E8E8ED",
+      color: "rgba(255, 255, 255, 0.6)",
       background: "transparent",
-      fontFamily: "var(--font-body)",
-      fontSize: "0.875rem",
+      boxShadow: "none",
     };
   }
 
-  /* Allow keyboard activation for <a> tags */
   function handleKeyDown(e: KeyboardEvent<HTMLElement>) {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       if (onClick) onClick();
-      else if (!href || href === '#' || href === '') {
-        toast('🚀 That feature is coming soon!');
-      }
+      else if (!href || href === '#' || href === '') toast('🚀 That feature is coming soon!');
     }
   }
 
   const handleBtnClick = (e: MouseEvent<HTMLButtonElement>) => {
     if (onClick) onClick();
-    else {
-      toast('🚀 That feature is coming soon!', { icon: '✨' });
-    }
+    else toast('🚀 That feature is coming soon!', { icon: '✨' });
   };
 
   const InnerContent = () => (
     <>
       <span className="relative z-10 flex items-center justify-center gap-2">{children}</span>
-      {isMega && (
-        <div 
-          className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 group-hover:animate-[sweep_1.5s_ease-in-out_infinite]"
-          style={{
-            background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
-            transform: "translateX(-100%) skewX(-15deg)",
-          }}
-        />
-      )}
+      <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+           style={{ background: 'radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 60%)' }} />
     </>
   );
 
-  /* ── Render as <a> or <button> ── */
   if (href && href !== '#' && href !== '') {
     const isExternal = href.startsWith('http') || href.endsWith('.pdf');
     return (
