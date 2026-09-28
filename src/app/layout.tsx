@@ -73,6 +73,8 @@ export const viewport = {
 };
 
 
+import { Toaster } from 'react-hot-toast';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -89,6 +91,17 @@ export default function RootLayout({
           <Nav />
           <main>{children}</main>
         </LenisProvider>
+        <Toaster 
+          position="bottom-center"
+          toastOptions={{
+            style: {
+              background: '#1a1a1f',
+              color: '#fff',
+              border: '1px solid rgba(196,145,122,0.3)',
+              borderRadius: '99px',
+            },
+          }}
+        />
         <Analytics />
       </body>
     </html>

@@ -1,6 +1,7 @@
 "use client";
 
 import { type ReactNode, type MouseEvent, type KeyboardEvent, useRef, useState, useCallback } from "react";
+import toast from 'react-hot-toast';
 
 /* ── Types ── */
 interface GlowButtonProps {
@@ -121,9 +122,19 @@ export function GlowButton({
   function handleKeyDown(e: KeyboardEvent<HTMLElement>) {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      onClick?.();
+      if (onClick) onClick();
+      else if (!href || href === '#' || href === '') {
+        toast('🚀 That feature is coming soon!');
+      }
     }
   }
+
+  const handleBtnClick = (e: MouseEvent<HTMLButtonElement>) => {
+    if (onClick) onClick();
+    else {
+      toast('🚀 That feature is coming soon!', { icon: '✨' });
+    }
+  };
 
   const InnerContent = () => (
     <>
@@ -141,7 +152,7 @@ export function GlowButton({
   );
 
   /* ── Render as <a> or <button> ── */
-  if (href) {
+  if (href && href !== '#' && href !== '') {
     const isExternal = href.startsWith('http') || href.endsWith('.pdf');
     return (
       <a
@@ -156,6 +167,7 @@ export function GlowButton({
         onMouseLeave={handleMouseLeave}
         onKeyDown={handleKeyDown}
         data-cursor="pointer"
+        onClick={onClick}
       >
         <InnerContent />
       </a>
@@ -166,7 +178,7 @@ export function GlowButton({
     <button
       ref={ref as React.RefObject<HTMLButtonElement>}
       type={type}
-      onClick={onClick}
+      onClick={handleBtnClick}
       disabled={disabled}
       className={baseClasses}
       style={variantStyle}

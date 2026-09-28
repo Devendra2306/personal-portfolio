@@ -94,12 +94,12 @@ function ProjectCard({ project }: { project: Project }) {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-3 mt-auto pointer-events-auto">
-            {project.demoUrl && project.demoUrl !== '#' && (
+            {project.demoUrl && (
               <GlowButton variant="primary" href={project.demoUrl} className="w-full sm:w-auto text-center justify-center">
                 LIVE DEMO
               </GlowButton>
             )}
-            {project.sourceUrl && project.sourceUrl !== '#' && (
+            {project.sourceUrl && (
               <GlowButton variant="secondary" href={project.sourceUrl} className="w-full sm:w-auto text-center justify-center">
                 GITHUB_SRC
               </GlowButton>
