@@ -92,7 +92,7 @@ export function Hero() {
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <GlowButton variant="primary" href="#projects">
+              <GlowButton variant="mega" href="#projects">
                 PROJECTS
               </GlowButton>
               <GlowButton variant="secondary" href="#contact">
@@ -118,12 +118,25 @@ export function Hero() {
       <div
         className="absolute inset-0 -z-10"
         style={{
-          background: 'radial-gradient(ellipse at 70% 50%, rgba(196, 145, 122, 0.08) 0%, transparent 60%), linear-gradient(180deg, #0A0A0F 0%, #0D0D12 100%)',
+          background: 'radial-gradient(circle at 15% 50%, rgba(196, 145, 122, 0.12), transparent 35%), radial-gradient(circle at 85% 30%, rgba(212, 168, 150, 0.08), transparent 35%), linear-gradient(180deg, #050508 0%, #0A0A0F 100%)',
+          backgroundSize: '200% 200%',
+          animation: 'mesh-gradient 15s ease infinite',
+        }}
+      />
+
+      {/* Grid overlay */}
+      <div 
+        className="absolute inset-0 -z-10 pointer-events-none opacity-20"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)',
+          backgroundSize: '64px 64px',
+          maskImage: 'radial-gradient(ellipse at center, black 20%, transparent 80%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 20%, transparent 80%)'
         }}
       />
 
       {/* Ambient glow orbs */}
-      <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none mix-blend-screen">
         <motion.div
           className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full"
           style={{
@@ -207,7 +220,7 @@ export function Hero() {
             variants={itemVariants}
             className="mt-10 flex flex-col sm:flex-row gap-4"
           >
-            <GlowButton variant="primary" href="#projects">
+            <GlowButton variant="mega" href="#projects">
               PROJECTS
             </GlowButton>
             <GlowButton variant="secondary" href="#contact">
